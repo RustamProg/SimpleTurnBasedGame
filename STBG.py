@@ -30,13 +30,15 @@ while game_is_running:
         if event.type == pygame.QUIT:
             game_is_running = False
 
+    pressed = pygame.mouse.get_pressed()
+    pos = pygame.mouse.get_pos()
+    if pressed[0]:
+        field.make_turn_cell(pos)
+
     screen.fill(WHITE)
-
     field.draw(screen)
-
     pygame.display.update()
     pygame.time.delay(20)
-
     field.update()
 
 pygame.quit()

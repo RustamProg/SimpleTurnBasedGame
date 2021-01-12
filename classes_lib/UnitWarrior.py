@@ -1,7 +1,6 @@
 import random
 import pygame
 
-
 class UnitWarrior(pygame.sprite.Sprite):
     def __init__(self, x, y, image, group):
         pygame.sprite.Sprite.__init__(self)
@@ -15,6 +14,8 @@ class UnitWarrior(pygame.sprite.Sprite):
         self.is_alive = True
         self.x = x
         self.y = y
+        self.dx = 50
+        self.dy = 50
 
     def level_up(self):
         self.health += 10
@@ -28,8 +29,13 @@ class UnitWarrior(pygame.sprite.Sprite):
     def get_damage(self):
         return random.randint(self.min_damage, self.max_damage)
 
-    def update(self):
-        self.x -= 1
-        self.y -= 1
+    def update(self, *args):
+        if args:
+            if args[0] == 'turn':
+                pos = args[1]
+                if (self.x - (self.dx / 2) < pos[0] < self.x + (self.dx / 2)) and (
+                        self.y - (self.dy / 2) < pos[1] < self.y + (self.dy / 2)):
+                    pressed = pygame.mouse.get_pressed()
+                    if pressed[0]:
+                        print('You pressed')
         self.rect = self.image.get_rect(center=(self.x, self.y))
-

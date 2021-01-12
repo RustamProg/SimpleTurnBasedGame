@@ -26,7 +26,12 @@ class Cell(pygame.sprite.Sprite):
         else:
             return True
 
-    def update(self):
-        self.x += 1
-        self.y += 1
-        self.rect = self.image.get_rect(center=(self.x, self.y))
+    def update(self, *args):
+        if args:
+            if args[0] == 'destroy':
+                pos = args[1]
+                if (self.x - (self.dx / 2) < pos[0] < self.x + (self.dx / 2)) and (self.y - (self.dy / 2) < pos[1] < self.y + (self.dy / 2)):
+                    self.kill()
+
+
+
